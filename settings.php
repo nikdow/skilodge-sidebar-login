@@ -24,32 +24,46 @@ class login_settings {
 		$this->load_settings();
 	}
 	
-	function login_widget_afo_save_settings(){
-		
-		if(isset($_POST['option']) and $_POST['option'] == "login_widget_afo_save_settings"){
-			
-			if ( ! isset( $_POST['login_widget_afo_field'] )  || ! wp_verify_nonce( $_POST['login_widget_afo_field'], 'login_widget_afo_action' ) ) {
-			   wp_die( 'Sorry, your nonce did not verify.' );
-			   exit;
-			} 
-		
-			update_option( 'redirect_page',  sanitize_text_field($_POST['redirect_page']) );
-			update_option( 'logout_redirect_page',  sanitize_text_field($_POST['logout_redirect_page']) );
-			update_option( 'link_in_username',  sanitize_text_field($_POST['link_in_username']) );
-			update_option( 'login_afo_rem',  sanitize_text_field($_POST['login_afo_rem']) );
-			update_option( 'login_afo_forgot_pass_link',  sanitize_text_field($_POST['login_afo_forgot_pass_link']) );
-			update_option( 'login_afo_register_link',  sanitize_text_field($_POST['login_afo_register_link']) );
-			
-			if(isset($_POST['load_default_style']) and $_POST['load_default_style'] == "Yes"){
-				update_option( 'custom_style_afo', sanitize_text_field($this->default_style) );
-			} else {
-				update_option( 'custom_style_afo',  sanitize_text_field($_POST['custom_style_afo']) );
-			}
-		}
-	}
+        /* not needed, and no need to have it called for every admin init
+	function login_widget_afo_save_settings(){   
+	} */
 	
 	function  login_widget_afo_options () {
 	global $wpdb;
+  
+        // marketing first so the "saved" notification can come below
+        $this->donate_form_login();
+	$this->fb_comment_addon_add();
+	$this->fb_login_pro_add();
+	$this->help_support();
+        
+        // moved the option saving here, options can be saved when the form submit is processed here
+        if(isset($_POST['option']) and $_POST['option'] == "login_widget_afo_save_settings"){
+
+                if ( ! isset( $_POST['login_widget_afo_field'] )  || ! wp_verify_nonce( $_POST['login_widget_afo_field'], 'login_widget_afo_action' ) ) {
+                   wp_die( 'Sorry, your nonce did not verify.' );
+                   exit;
+                } 
+
+                update_option( 'redirect_page',  sanitize_text_field($_POST['redirect_page']) );
+                update_option( 'logout_redirect_page',  sanitize_text_field($_POST['logout_redirect_page']) );
+                update_option( 'link_in_username',  sanitize_text_field($_POST['link_in_username']) );
+                update_option( 'login_afo_rem',  sanitize_text_field(isset ( $_POST['login_afo_rem'] ) ? $_POST['login_afo_rem'] : "No") );
+                update_option( 'login_afo_forgot_pass_link',  sanitize_text_field($_POST['login_afo_forgot_pass_link']) );
+                update_option( 'login_afo_register_link',  sanitize_text_field($_POST['login_afo_register_link']) );
+                update_option( 'login_afo_username_text',  sanitize_text_field($_POST['login_afo_username_text']) );
+                update_option( 'login_afo_password_text',  sanitize_text_field($_POST['login_afo_password_text']) );
+
+                if(isset($_POST['load_default_style']) and $_POST['load_default_style'] == "Yes"){
+                        update_option( 'custom_style_afo', sanitize_text_field($this->default_style) );
+                } else {
+                        update_option( 'custom_style_afo',  sanitize_text_field($_POST['custom_style_afo']) );
+                }
+                // Add an update notification so the user knows it's been saved
+                ?>
+                <div class="updated"><p><strong><?php _e('settings saved.' ); ?></strong></p></div>
+                <?php
+            }
 	
 	$redirect_page = get_option('redirect_page');
 	$logout_redirect_page = get_option('logout_redirect_page');
@@ -57,13 +71,11 @@ class login_settings {
 	$login_afo_rem = get_option('login_afo_rem');
 	$login_afo_forgot_pass_link = get_option('login_afo_forgot_pass_link');
 	$login_afo_register_link = get_option('login_afo_register_link');
+        $login_afo_username_text = get_option('login_afo_username_text');
+        $login_afo_password_text = get_option('login_afo_password_text');
 	
 	$custom_style_afo = stripslashes(get_option('custom_style_afo'));
 	
-	$this->donate_form_login();
-	$this->fb_comment_addon_add();
-	$this->fb_login_pro_add();
-	$this->help_support();
 	?>
 	<form name="f" method="post" action="">
 	<?php wp_nonce_field('login_widget_afo_action','login_widget_afo_field'); ?>
@@ -154,6 +166,20 @@ class login_settings {
 			?>
 			<i>Leave blank to not include the link</i>
 			</td>
+	  </tr>
+          <tr>
+		<td><strong>Username Text</strong></td>
+		<td>
+                    <input name="login_afo_username_text" value="<?=$login_afo_username_text?>" />	
+                    <i>Replace label of username field in login form</i>
+                </td>
+	  </tr>
+          <tr>
+		<td><strong>Password Text</strong></td>
+		<td>
+                    <input name="login_afo_password_text" value="<?=$login_afo_password_text?>" />	
+                    <i>Replace label of password field in login form</i>
+                </td>
 	  </tr>
 	   <tr>
 			<td width="45%"><h1>Styling</h1></td>
@@ -258,6 +284,9 @@ class login_settings {
 	
 	function plug_install_afo_fb_login(){
 		update_option( 'custom_style_afo', $this->default_style );
+                // provide defaults for these options
+                add_option('login_afo_username_text', 'Username' ); 
+                add_option('login_afo_password_text', 'Password' );
 	}
 	
 	function login_widget_afo_menu () {
@@ -266,7 +295,7 @@ class login_settings {
 	
 	function load_settings(){
 		add_action( 'admin_menu' , array( $this, 'login_widget_afo_menu' ) );
-		add_action( 'admin_init', array( $this, 'login_widget_afo_save_settings' ) );
+	//	add_action( 'admin_init', array( $this, 'login_widget_afo_save_settings' ) );
 		add_action( 'plugins_loaded',  array( $this, 'login_widget_afo_text_domain' ) );
 		register_activation_hook(__FILE__, array( $this, 'plug_install_afo_fb_login' ) );
 	}

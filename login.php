@@ -19,4 +19,3 @@ include_once dirname( __FILE__ ) . '/settings.php';
 include_once dirname( __FILE__ ) . '/login_afo_widget.php';
 include_once dirname( __FILE__ ) . '/forgot_pass_class.php';
 include_once dirname( __FILE__ ) . '/login_afo_widget_shortcode.php';
-

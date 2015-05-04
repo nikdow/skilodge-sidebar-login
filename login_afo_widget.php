@@ -86,6 +86,8 @@ class login_wid extends WP_Widget {
 		$redirect_page = get_option('redirect_page');
 		$logout_redirect_page = get_option('logout_redirect_page');
 		$link_in_username = get_option('link_in_username');
+                $username_text = get_option('login_afo_username_text');
+                $password_text = get_option('login_afo_password_text');
 		
 		if($redirect_page){
 			$redirect =  get_permalink($redirect_page);
@@ -106,9 +108,9 @@ class login_wid extends WP_Widget {
 		<input type="hidden" name="option" value="afo_user_login" />
 		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
 			<ul class="login_wid">
-			<li><label for="username"><?php _e('Member number','lwa');?></label></li>
+			<li><label for="username"><?php _e($username_text,'lwa');?></label></li>
 			<li><input type="text" name="user_username" required="required"/></li>
-			<li class="clear"><label for="password"><?php _e('Surname','lwa');?></label></li>
+			<li class="clear"><label for="password"><?php _e($password_text,'lwa');?></label></li>
 			<li><input type="text" name="user_password" required="required"/></li>
 			<?php $this->add_remember_me();?>
 			<li><input name="login" type="submit" value="<?php _e('Login','lwa');?>" /></li>
@@ -121,9 +123,9 @@ class login_wid extends WP_Widget {
      	get_currentuserinfo();
 		
 		if($link_in_username){
-			$link_with_username = '<a href="'.get_permalink($link_in_username).'">'.__('Howdy','lwa').', '.$current_user->display_name.'</a>';
+			$link_with_username = '<a href="'.get_permalink($link_in_username).'">'.__('Welcome','lwa').', '.$current_user->display_name.'</a>';
 		} else {
-			$link_with_username = __('Howdy','lwa').', '.$current_user->display_name;
+			$link_with_username = __('Welcome','lwa').', '.$current_user->display_name;
 		}
 		?>
 		<ul style="list-style-type:none;">
@@ -174,14 +176,14 @@ function login_validate(){
 			$creds = array();
 			$creds['user_login'] = $_POST['user_username'];
 			$creds['user_password'] = $_POST['user_password'];
-			if($_POST['remember'] == 'Yes'){
+			if(isset($_POST['remember']) && $_POST['remember'] == 'Yes'){
 				$remember = true;
 			} else {
 				$remember = false;
 			}
 			$creds['remember'] = $remember;
 			$user = wp_signon( $creds, true );
-			if($user->ID == ""){
+			if( is_wp_error( $user ) || ! $user->exists() ){
 				$_SESSION['msg_class'] = 'error_wid_login';
 				$_SESSION['msg'] = __('Error in login!','lwa');
 			} else{
