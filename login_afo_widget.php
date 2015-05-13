@@ -129,7 +129,7 @@ class login_wid extends WP_Widget {
 		}
 		?>
 		<ul style="list-style-type:none;">
-			<li><?php echo $link_with_username;?> | <a href="<?php echo wp_logout_url( $logout_redirect_page ); ?>" title="<?php _e('Logout','lwa');?>"><?php _e('Logout','lwa');?></a></li>
+                    <li><?php echo $link_with_username;?></li><li><a href="<?php echo wp_logout_url( $logout_redirect_page ); ?>" title="<?php _e('Logout','lwa');?>"><?php _e('Logout','lwa');?></a></li>
 		</ul>
 		<?php 
 		}
@@ -184,8 +184,9 @@ function login_validate(){
 			$creds['remember'] = $remember;
 			$user = wp_signon( $creds, true );
 			if( is_wp_error( $user ) || ! $user->exists() ){
+                            global $ext_error;
 				$_SESSION['msg_class'] = 'error_wid_login';
-				$_SESSION['msg'] = __('Error in login!','lwa');
+				$_SESSION['msg'] = __($ext_error,'lwa');
 			} else{
 				wp_set_auth_cookie($user->ID, $remember);
 				wp_redirect( $_POST['redirect'] );
