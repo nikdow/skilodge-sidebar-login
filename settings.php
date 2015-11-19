@@ -53,6 +53,7 @@ class login_settings {
                 update_option( 'login_afo_register_link',  sanitize_text_field($_POST['login_afo_register_link']) );
                 update_option( 'login_afo_username_text',  sanitize_text_field($_POST['login_afo_username_text']) );
                 update_option( 'login_afo_password_text',  sanitize_text_field($_POST['login_afo_password_text']) );
+                update_option( 'login_afo_login_page', sanitize_text_field($_POST['login_afo_login_page']) );
 
                 if(isset($_POST['load_default_style']) and $_POST['load_default_style'] == "Yes"){
                         update_option( 'custom_style_afo', sanitize_text_field($this->default_style) );
@@ -73,6 +74,7 @@ class login_settings {
 	$login_afo_register_link = get_option('login_afo_register_link');
         $login_afo_username_text = get_option('login_afo_username_text');
         $login_afo_password_text = get_option('login_afo_password_text');
+        $login_afo_login_page = get_option('login_afo_login_page');
 	
 	$custom_style_afo = stripslashes(get_option('custom_style_afo'));
 	
@@ -179,6 +181,13 @@ class login_settings {
 		<td>
                     <input name="login_afo_password_text" value="<?=$login_afo_password_text?>" />	
                     <i>Replace label of password field in login form</i>
+                </td>
+	  </tr>
+          <tr>
+		<td><strong>Login Page</strong></td>
+		<td>
+                    <input name="login_afo_login_page" value="<?=$login_afo_login_page?>" />	
+                    <i>page containing login form, overrides normal WP login page</i>
                 </td>
 	  </tr>
 	   <tr>
@@ -298,8 +307,12 @@ class login_settings {
 	//	add_action( 'admin_init', array( $this, 'login_widget_afo_save_settings' ) );
 		add_action( 'plugins_loaded',  array( $this, 'login_widget_afo_text_domain' ) );
 		register_activation_hook(__FILE__, array( $this, 'plug_install_afo_fb_login' ) );
+                add_filter( 'login_url', array( $this, 'login_page' ), 10, 2 );
 	}
-	
+        function login_page( $login_url, $redirect ) {
+            return get_option('login_afo_login_page') . '?redirect_to=' . $redirect;
+        }
+
 	function help_support(){ ?>
 	<table width="98%" border="0" style="background-color:#FFFFFF; border:1px solid #CCCCCC; padding:0px 0px 0px 10px; margin:2px;">
 	  <tr>
