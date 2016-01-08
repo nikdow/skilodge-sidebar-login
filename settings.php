@@ -307,11 +307,11 @@ class login_settings {
 	//	add_action( 'admin_init', array( $this, 'login_widget_afo_save_settings' ) );
 		add_action( 'plugins_loaded',  array( $this, 'login_widget_afo_text_domain' ) );
 		register_activation_hook(__FILE__, array( $this, 'plug_install_afo_fb_login' ) );
-                add_filter( 'login_url', array( $this, 'login_page' ), 10, 2 );
-	}
+//                add_filter( 'login_url', array( $this, 'login_page' ), 10, 2 );
+/*	}
         function login_page( $login_url, $redirect ) {
             return get_option('login_afo_login_page') . '?redirect_to=' . $redirect;
-        }
+        } */
 
 	function help_support(){ ?>
 	<table width="98%" border="0" style="background-color:#FFFFFF; border:1px solid #CCCCCC; padding:0px 0px 0px 10px; margin:2px;">
