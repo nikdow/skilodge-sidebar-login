@@ -308,8 +308,8 @@ class login_settings {
 		add_action( 'plugins_loaded',  array( $this, 'login_widget_afo_text_domain' ) );
 		register_activation_hook(__FILE__, array( $this, 'plug_install_afo_fb_login' ) );
 //                add_filter( 'login_url', array( $this, 'login_page' ), 10, 2 );
-/*	}
-        function login_page( $login_url, $redirect ) {
+	}
+/*        function login_page( $login_url, $redirect ) {
             return get_option('login_afo_login_page') . '?redirect_to=' . $redirect;
         } */
 
