@@ -145,6 +145,7 @@ class login_wid extends WP_Widget {
 	
 	public function message_close_button(){
 		$cb = '<a href="javascript:void(0);" onclick="closeMessage();" class="close_button_afo">x</a>';
+                return ""; // no button!
 		return $cb;
 	}
 	
