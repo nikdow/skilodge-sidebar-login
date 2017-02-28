@@ -104,6 +104,7 @@ class login_wid extends WP_Widget {
 		$this->error_message();
 		if(!is_user_logged_in()){
 		?>
+                <a name="login"></a>
 		<form name="login" id="login" method="post" action="">
 		<input type="hidden" name="option" value="afo_user_login" />
 		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
