@@ -53,6 +53,8 @@ class login_settings {
                 update_option( 'login_afo_register_link',  sanitize_text_field($_POST['login_afo_register_link']) );
                 update_option( 'login_afo_username_text',  sanitize_text_field($_POST['login_afo_username_text']) );
                 update_option( 'login_afo_password_text',  sanitize_text_field($_POST['login_afo_password_text']) );
+                update_option( 'login_afo_placeholder_username_text',  sanitize_text_field($_POST['login_afo_placeholder_username_text']) );
+                update_option( 'login_afo_placeholder_password_text',  sanitize_text_field($_POST['login_afo_placeholder_password_text']) );
                 update_option( 'login_afo_login_page', sanitize_text_field($_POST['login_afo_login_page']) );
 
                 if(isset($_POST['load_default_style']) and $_POST['load_default_style'] == "Yes"){
@@ -74,6 +76,8 @@ class login_settings {
 	$login_afo_register_link = get_option('login_afo_register_link');
         $login_afo_username_text = get_option('login_afo_username_text');
         $login_afo_password_text = get_option('login_afo_password_text');
+        $login_afo_placeholder_username_text = get_option('login_afo_placeholder_username_text');
+        $login_afo_placeholder_password_text = get_option('login_afo_placeholder_password_text');
         $login_afo_login_page = get_option('login_afo_login_page');
 	
 	$custom_style_afo = stripslashes(get_option('custom_style_afo'));
@@ -181,6 +185,20 @@ class login_settings {
 		<td>
                     <input name="login_afo_password_text" value="<?=$login_afo_password_text?>" />	
                     <i>Replace label of password field in login form</i>
+                </td>
+	  </tr>
+           <tr>
+		<td><strong>Username Placeholder Text</strong></td>
+		<td>
+                    <input name="login_afo_placeholder_username_text" value="<?=$login_afo_placeholder_username_text?>" />	
+                    <i>placeholder for username field in login form</i>
+                </td>
+	  </tr>
+          <tr>
+		<td><strong>Password Placeholder Text</strong></td>
+		<td>
+                    <input name="login_afo_placeholder_password_text" value="<?=$login_afo_placeholder_password_text?>" />	
+                    <i>placeholder for password field in login form</i>
                 </td>
 	  </tr>
           <tr>
@@ -296,6 +314,8 @@ class login_settings {
                 // provide defaults for these options
                 add_option('login_afo_username_text', 'Username' ); 
                 add_option('login_afo_password_text', 'Password' );
+                add_option('login_afo_placeholder_username_text', 'Username' ); 
+                add_option('login_afo_placeholder_password_text', 'Password' );
 	}
 	
 	function login_widget_afo_menu () {

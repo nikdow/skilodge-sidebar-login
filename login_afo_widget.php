@@ -88,6 +88,8 @@ class login_wid extends WP_Widget {
 		$link_in_username = get_option('link_in_username');
                 $username_text = get_option('login_afo_username_text');
                 $password_text = get_option('login_afo_password_text');
+                $username_placeholder_text = get_option('login_afo_placeholder_username_text');
+                $password_placeholder_text = get_option('login_afo_placeholder_password_text');
 		
 		if($redirect_page){
 			$redirect =  get_permalink($redirect_page);
@@ -110,9 +112,9 @@ class login_wid extends WP_Widget {
 		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
 			<ul class="login_wid">
 			<li class="label"><label for="username"><?php _e($username_text,'lwa');?></label></li>
-			<li><input type="text" name="user_username" required="required"/></li>
+                        <li><input type="text" name="user_username" required="required" placeholder="<?=$username_placeholder_text?>"/></li>
 			<li class="clear label"><label for="password"><?php _e($password_text,'lwa');?></label></li>
-			<li><input type="text" name="user_password" required="required"/></li>
+                        <li><input type="text" name="user_password" required="required" placeholder="<?=$password_placeholder_text?>"/></li>
 			<?php $this->add_remember_me();?>
 			<li><input name="login" type="submit" value="<?php _e('Login','lwa');?>" /></li>
 			<?php $this->add_extra_links();?>
@@ -120,19 +122,23 @@ class login_wid extends WP_Widget {
 		</form>
 		<?php 
 		} else {
-		global $current_user;
-                $current_user = wp_get_current_user();
-		
-		if($link_in_username){
-			$link_with_username = '<a href="'.get_permalink($link_in_username).'">'.__('Welcome','lwa').', '.$current_user->display_name.'</a>';
-		} else {
-			$link_with_username = __('Welcome','lwa').', '.$current_user->display_name;
-		}
-		?>
-		<ul style="list-style-type:none;">
-                    <li><?php echo $link_with_username;?></li><li><a href="<?php echo wp_logout_url( $logout_redirect_page ); ?>" title="<?php _e('Logout','lwa');?>"><?php _e('Logout','lwa');?></a></li>
-		</ul>
-		<?php 
+                    ?>
+                    <div id="login">
+                        <?php
+                        global $current_user;
+                        $current_user = wp_get_current_user();
+
+                        if($link_in_username){
+                                $link_with_username = '<a href="'.get_permalink($link_in_username).'">'.__('Welcome','lwa').', '.$current_user->display_name.'</a>';
+                        } else {
+                                $link_with_username = __('Welcome','lwa').', '.$current_user->display_name;
+                        }
+                        ?>
+                        <ul style="list-style-type:none;">
+                            <li><?php echo $link_with_username;?></li><li><a href="<?php echo wp_logout_url( $logout_redirect_page ); ?>" title="<?php _e('Logout','lwa');?>"><?php _e('Logout','lwa');?></a></li>
+                        </ul>
+                    </div>
+                    <?php 
 		}
 	}
 	
