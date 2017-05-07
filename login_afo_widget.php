@@ -121,7 +121,7 @@ class login_wid extends WP_Widget {
 		<?php 
 		} else {
 		global $current_user;
-     	get_currentuserinfo();
+                $current_user = wp_get_current_user();
 		
 		if($link_in_username){
 			$link_with_username = '<a href="'.get_permalink($link_in_username).'">'.__('Welcome','lwa').', '.$current_user->display_name.'</a>';
