@@ -56,6 +56,7 @@ class login_settings {
                 update_option( 'login_afo_placeholder_username_text',  sanitize_text_field($_POST['login_afo_placeholder_username_text']) );
                 update_option( 'login_afo_placeholder_password_text',  sanitize_text_field($_POST['login_afo_placeholder_password_text']) );
                 update_option( 'login_afo_login_page', sanitize_text_field($_POST['login_afo_login_page']) );
+                update_option( 'login_afo_password_hidden', sanitize_text_field($_POST['login_afo_password_hidden']));
 
                 if(isset($_POST['load_default_style']) and $_POST['load_default_style'] == "Yes"){
                         update_option( 'custom_style_afo', sanitize_text_field($this->default_style) );
@@ -79,6 +80,7 @@ class login_settings {
         $login_afo_placeholder_username_text = get_option('login_afo_placeholder_username_text');
         $login_afo_placeholder_password_text = get_option('login_afo_placeholder_password_text');
         $login_afo_login_page = get_option('login_afo_login_page');
+        $login_afo_password_hidden = get_option('$login_afo_password_hidden');
 	
 	$custom_style_afo = stripslashes(get_option('custom_style_afo'));
 	
@@ -156,7 +158,7 @@ class login_settings {
 			<i>Leave blank to not include the link</i>
 			</td>
 	  </tr>
-	  <tr>
+       <tr>
 		<td><strong>Register Link</strong></td>
 		<td>
 			<?php
@@ -173,6 +175,23 @@ class login_settings {
 			<i>Leave blank to not include the link</i>
 			</td>
 	  </tr>
+        <tr>
+            <td><strong>Password Field Hidden</strong></td>
+            <td>
+                <?php
+                $args5 = array(
+                    'depth'            => 0,
+                    'selected'         => $login_afo_password_hidden,
+                    'echo'             => 1,
+                    'show_option_none' => '-',
+                    'id' 			   => 'login_afo_password_hidden',
+                    'name'             => 'login_afo_password_hidden'
+                );
+                wp_dropdown_pages( $args5 );
+                ?>
+                <i>Leave blank to use ordinary text field</i>
+            </td>
+        </tr>
           <tr>
 		<td><strong>Username Text</strong></td>
 		<td>

@@ -90,6 +90,7 @@ class login_wid extends WP_Widget {
                 $password_text = get_option('login_afo_password_text');
                 $username_placeholder_text = get_option('login_afo_placeholder_username_text');
                 $password_placeholder_text = get_option('login_afo_placeholder_password_text');
+                $login_afo_password_hidden = get_option('login_afo_password_hidden');
 		
 		if($redirect_page){
 			$redirect =  get_permalink($redirect_page);
@@ -114,7 +115,7 @@ class login_wid extends WP_Widget {
 			<li class="label"><label for="username"><?php _e($username_text,'lwa');?></label></li>
                         <li><input type="text" name="user_username" required="required" placeholder="<?=$username_placeholder_text?>"/></li>
 			<li class="clear label"><label for="password"><?php _e($password_text,'lwa');?></label></li>
-                        <li><input type="text" name="user_password" required="required" placeholder="<?=$password_placeholder_text?>"/></li>
+                        <li><input type="<?=(login_afo_password_hidden ? 'input' : 'password')?>>" name="user_password" required="required" placeholder="<?=$password_placeholder_text?>"/></li>
 			<?php $this->add_remember_me();?>
 			<li><input name="login" type="submit" value="<?php _e('Login','lwa');?>" /></li>
 			<?php $this->add_extra_links();?>
