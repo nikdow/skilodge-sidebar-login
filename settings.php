@@ -177,19 +177,7 @@ class login_settings {
 	  </tr>
         <tr>
             <td><strong>Password Field Hidden</strong></td>
-            <td>
-                <?php
-                $args5 = array(
-                    'depth'            => 0,
-                    'selected'         => $login_afo_password_hidden,
-                    'echo'             => 1,
-                    'show_option_none' => '-',
-                    'id' 			   => 'login_afo_password_hidden',
-                    'name'             => 'login_afo_password_hidden'
-                );
-                wp_dropdown_pages( $args5 );
-                ?>
-                <i>Leave blank to use ordinary text field</i>
+            <td><input type="checkbox" name="login_afo_password_hidden" value="Yes" <?php echo $login_afo_password_hidden == 'Yes'?'checked="checked"':'';?> />
             </td>
         </tr>
           <tr>
