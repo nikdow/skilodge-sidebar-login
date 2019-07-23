@@ -80,7 +80,7 @@ class login_settings {
         $login_afo_placeholder_username_text = get_option('login_afo_placeholder_username_text');
         $login_afo_placeholder_password_text = get_option('login_afo_placeholder_password_text');
         $login_afo_login_page = get_option('login_afo_login_page');
-        $login_afo_password_hidden = get_option('$login_afo_password_hidden');
+        $login_afo_password_hidden = get_option('login_afo_password_hidden');
 	
 	$custom_style_afo = stripslashes(get_option('custom_style_afo'));
 	
