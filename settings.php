@@ -343,11 +343,7 @@ class login_settings {
         } */
 
 	function help_support(){ ?>
-	<table width="98%" border="0" style="background-color:#FFFFFF; border:1px solid #CCCCCC; padding:0px 0px 0px 10px; margin:2px;">
-	  <tr>
-		<td align="right"><a href="http://aviplugins.com/support.php" target="_blank">Help and Support</a></td>
-	  </tr>
-	</table>
+
 	<?php
 	}
 	
