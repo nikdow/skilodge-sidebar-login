@@ -354,21 +354,12 @@ class login_settings {
 	function fb_comment_addon_add(){ 
 		if ( !is_plugin_active( 'fb-comments-afo-addon/fb_comment.php' ) ) {
 	?>
-		<table width="98%" border="0" style="background-color:#FFFFD2; border:1px solid #E6DB55; padding:0px 0px 0px 10px; margin:2px;">
-	  <tr>
-		<td><p>There is a <strong>Facebook Comments Addon</strong> for this plugin. The plugin replace the default <strong>Wordpress</strong> Comments module and enable <strong>Facebook</strong> Comments Module. You can get it <a href="http://www.aviplugins.com/fb-comments-afo-addon/" target="_blank">here</a> in <strong>USD 1.00</strong> </p></td>
-	  </tr>
-	</table>
-	<?php 
+	<?php
 		}
 	}
 	
 	function fb_login_pro_add(){ ?>
-	<table width="98%" border="0" style="background-color:#FFFFD2; border:1px solid #E6DB55; padding:0px 0px 0px 10px; margin:2px;">
-  <tr>
-    <td><p>There is a PRO version of this plugin that supports login with <strong>Facebook</strong>, <strong>Google</strong>,  <strong>Twitter</strong> and <strong>LinkedIn</strong>. You can get it <a href="http://aviplugins.com/fb-login-widget-pro/" target="_blank">here</a> in <strong>USD 3.00</strong> </p></td>
-  </tr>
-</table>
+
 	<?php }
 	
 	function donate_form_login(){
