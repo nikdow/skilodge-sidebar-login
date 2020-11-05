@@ -102,7 +102,8 @@ class login_settings {
 				'echo'             => 1,
 				'show_option_none' => '-',
 				'id' 			   => 'redirect_page',
-				'name'             => 'redirect_page'
+				'name'             => 'redirect_page',
+                'post_status'       => ['publish','private']
 				);
 				wp_dropdown_pages( $args ); 
 			?></td>
