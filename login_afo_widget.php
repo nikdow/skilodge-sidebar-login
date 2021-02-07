@@ -105,7 +105,7 @@ class login_wid extends WP_Widget {
 		}
 		$this->load_script();
 		$this->error_message();
-		?><a name="login"></a><?php
+		?><a id="login" name="login"></a><?php
                 if(!is_user_logged_in()){
 		?>
                 <form name="login" id="login" method="post" action="">
