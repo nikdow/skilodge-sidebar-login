@@ -105,17 +105,17 @@ class login_wid extends WP_Widget {
 		}
 		$this->load_script();
 		$this->error_message();
-		?><a id="login" name="login"></a><?php
-                if(!is_user_logged_in()){
+        if(!is_user_logged_in()){
 		?>
-                <form name="login" id="login" method="post" action="">
-		<input type="hidden" name="option" value="afo_user_login" />
-		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
+            <a id="login" name="login">Member Login</a>
+            <form name="login" id="login" method="post" action="">
+            <input type="hidden" name="option" value="afo_user_login" />
+            <input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
 			<ul class="login_wid">
 			<li class="label"><label for="username"><?php _e($username_text,'lwa');?></label></li>
-                        <li><input type="text" name="user_username" required="required" placeholder="<?=$username_placeholder_text?>"/></li>
+            <li><input type="text" name="user_username" required="required" placeholder="<?=$username_placeholder_text?>"/></li>
 			<li class="clear label"><label for="password"><?php _e($password_text,'lwa');?></label></li>
-                        <li><input type="<?=($login_afo_password_hidden !== 'Yes' ? 'input' : 'password')?>" name="user_password" required="required" placeholder="<?=$password_placeholder_text?>"/></li>
+            <li><input type="<?=($login_afo_password_hidden !== 'Yes' ? 'input' : 'password')?>" name="user_password" required="required" placeholder="<?=$password_placeholder_text?>"/></li>
 			<?php $this->add_remember_me();?>
 			<li><input name="login" type="submit" value="<?php _e('Login','lwa');?>" /></li>
 			<?php $this->add_extra_links();?>
@@ -123,23 +123,23 @@ class login_wid extends WP_Widget {
 		</form>
 		<?php 
 		} else {
-                    ?>
-                    <div id="login">
-                        <?php
-                        global $current_user;
-                        $current_user = wp_get_current_user();
+            ?>
+            <div id="login">
+                <?php
+                global $current_user;
+                $current_user = wp_get_current_user();
 
-                        if($link_in_username){
-                                $link_with_username = '<a href="'.get_permalink($link_in_username).'">'.__('Welcome','lwa').', '.$current_user->display_name.'</a>';
-                        } else {
-                                $link_with_username = __('Welcome','lwa').', '.$current_user->display_name;
-                        }
-                        ?>
-                        <ul style="list-style-type:none;">
-                            <li><?php echo $link_with_username;?></li><li><a href="<?php echo wp_logout_url( $logout_redirect_page ); ?>" title="<?php _e('Logout','lwa');?>"><?php _e('Logout','lwa');?></a></li>
-                        </ul>
-                    </div>
-                    <?php 
+                if($link_in_username){
+                        $link_with_username = '<a href="'.get_permalink($link_in_username).'">'.__('Welcome','lwa').', '.$current_user->display_name.'</a>';
+                } else {
+                        $link_with_username = __('Welcome','lwa').', '.$current_user->display_name;
+                }
+                ?>
+                <ul style="list-style-type:none;">
+                    <li><?php echo $link_with_username;?></li><li><a href="<?php echo wp_logout_url( $logout_redirect_page ); ?>" title="<?php _e('Logout','lwa');?>"><?php _e('Logout','lwa');?></a></li>
+                </ul>
+            </div>
+            <?php
 		}
 	}
 	
