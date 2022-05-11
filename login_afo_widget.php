@@ -208,6 +208,6 @@ function login_validate(){
 	}
 }
 
-add_action( 'widgets_init', create_function( '', 'register_widget( "login_wid" );' ) );
+add_action( 'widgets_init', function(){register_widget( "login_wid" );} );
 add_action( 'init', 'login_validate' );
 ?>
