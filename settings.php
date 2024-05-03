@@ -1,5 +1,5 @@
 <?php
-class login_settings {
+class cbdweb_login_settings {
 
 	private $default_style = '
 	.login_wid{
@@ -365,4 +365,4 @@ class login_settings {
 	<?php }
 	}
 }
-new login_settings;
+new cbdweb_login_settings;
