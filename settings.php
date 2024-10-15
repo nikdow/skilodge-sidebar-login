@@ -177,7 +177,7 @@ class cbdweb_login_settings {
 			</td>
 	  </tr>
         <tr>
-            <td><strong>Password Field Hidden</strong></td>
+            <td><strong>Using Password</strong></td>
             <td><input type="checkbox" name="login_afo_password_hidden" value="Yes" <?php echo $login_afo_password_hidden == 'Yes'?'checked="checked"':'';?> />
                 <i>Using passwords? </i><a href="https://help.cbdweb.net/wordpress/authenticating-your-members-on-wordpress/" target="_blank">help page</a>
             </td>
